@@ -1,4 +1,4 @@
-#bd_labss
+
 <h1 name="content" align="center"><a href=""><img src="https://github.com/user-attachments/assets/e080adec-6af7-4bd2-b232-d43cb37024ac" width="20" height="20"/></a> MSSQL</h1>
 
 <p align="center">
