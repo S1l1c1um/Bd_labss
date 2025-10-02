@@ -1,6 +1,3 @@
-USE JeweleryStore;
-GO
-
 INSERT INTO Discount (наименование, размер) VALUES
 ('Новичок', 5),
 ('Постоянный', 10),
