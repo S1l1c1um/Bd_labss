@@ -1,5 +1,3 @@
-USE JeweleryStore;
-
 CREATE TABLE Discount (
     ID INT IDENTITY(1,1) PRIMARY KEY,
     наименование NVARCHAR(20) NOT NULL,
