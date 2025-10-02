@@ -1,21 +1,19 @@
-USE JeweleryStore;
-
 CREATE TABLE Discount (
     ID INT IDENTITY(1,1) PRIMARY KEY,
-    наименование NVARCHAR(20) NOT NULL,
-    размер INT NOT NULL CHECK (размер >= 0 AND размер <= 100)
+    Denomination NVARCHAR(20) NOT NULL,
+    size INT NOT NULL CHECK (size >= 0 AND size <= 100)
 );
 
 CREATE TABLE Client (
     ID INT IDENTITY(1,1) PRIMARY KEY,
-    ФИО NVARCHAR(100) NOT NULL,
-    Адрес NVARCHAR(100),
-    телефон NVARCHAR(20)
+    Full_name NVARCHAR(100) NOT NULL,
+    Adres NVARCHAR(100),
+    Telephone NVARCHAR(20)
 );
 
 CREATE TABLE Workshop (
     ID INT IDENTITY(1,1) PRIMARY KEY,
-    адрес NVARCHAR(100) NOT NULL 
+    Adres NVARCHAR(100) NOT NULL 
 );
 
 CREATE TABLE Material (
@@ -24,17 +22,17 @@ CREATE TABLE Material (
 
 CREATE TABLE Jewelery (
     ID INT IDENTITY(1,1) PRIMARY KEY,
-    название_изделия NVARCHAR(100) NOT NULL,
-    вид_изделия NVARCHAR(20) NOT NULL,
+    Product_name NVARCHAR(100) NOT NULL,
+    Type_of_product NVARCHAR(20) NOT NULL,
     Workshop_ID INT NOT NULL,
     FOREIGN KEY (Workshop_ID) REFERENCES Workshop(ID)
 );
 
 CREATE TABLE Contract (
     ID INT IDENTITY(1,1) PRIMARY KEY,
-    дата DATE NOT NULL DEFAULT GETDATE(),
-    статус NVARCHAR(20) NOT NULL,
-    стоимость MONEY NOT NULL CHECK (стоимость > 0),
+    data DATE NOT NULL DEFAULT GETDATE(),
+    statuse NVARCHAR(20) NOT NULL,
+    Price MONEY NOT NULL CHECK (Price > 0),
     Client_ID INT NOT NULL,
     Jewelery_ID INT NOT NULL UNIQUE,
     Discount_ID INT NOT NULL,
