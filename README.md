@@ -71,7 +71,7 @@ ER-модель д.б. представлена в виде ER-диаграмм�
 
 [SQL-код создания таблиц](https://github.com/S1l1c1um/Bd_labss/blob/main/JeweleryStore-database/SQLQuery1.sql)
 
-[SQL-код заполнения таблицы](https://github.com/S1l1c1um/Bd_labss/blob/main/JeweleryStore-database/SQLQuery4.sql)
+[SQL-код заполнения таблиц](https://github.com/S1l1c1um/Bd_labss/blob/main/JeweleryStore-database/SQLQuery4.sql)
 
 #### Диаграмма базы данных
 ![image](/lab1/bd.JPG)
