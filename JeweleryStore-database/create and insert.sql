@@ -9,13 +9,13 @@ CREATE TABLE Discount (
 CREATE TABLE Client (
     ID INT IDENTITY(1,1) PRIMARY KEY,
     full_name NVARCHAR(100) NOT NULL,
-    adres NVARCHAR(100),
+    adress NVARCHAR(100),
     telephone NVARCHAR(20)
 );
 
 CREATE TABLE Workshop (
     ID INT IDENTITY(1,1) PRIMARY KEY,
-    adres NVARCHAR(100) NOT NULL 
+    adress NVARCHAR(100) NOT NULL 
 );
 
 CREATE TABLE Material (
@@ -34,10 +34,10 @@ CREATE TABLE Jewelery (
 CREATE TABLE Contract (
     ID INT IDENTITY(1,1) PRIMARY KEY,
     data DATE NOT NULL DEFAULT GETDATE(),
-    statuse NVARCHAR(20) NOT NULL,
+    status_ NVARCHAR(20) NOT NULL,
     price MONEY NOT NULL CHECK (price > 0),
     client_ID INT NOT NULL,
-    jewelery_ID INT NOT NULL UNIQUE,
+    jewelery_ID INT NOT NULL,
     discount_ID INT NOT NULL,
     FOREIGN KEY (client_ID) REFERENCES client(ID),
     FOREIGN KEY (jewelery_ID) REFERENCES jewelery(ID),
@@ -45,9 +45,9 @@ CREATE TABLE Contract (
 );
 
 CREATE TABLE client_discount (
-    ID INT IDENTITY(1,1) PRIMARY KEY,
     client_ID INT NOT NULL,
     discount_ID INT NOT NULL,
+    PRIMARY KEY (client_ID, discount_ID),
     FOREIGN KEY (client_ID) REFERENCES client(ID),
     FOREIGN KEY (discount_ID) REFERENCES discount(ID)
 );
@@ -61,7 +61,7 @@ CREATE TABLE jewelery_material(
     FOREIGN KEY (jewelery_ID) REFERENCES jewelery(ID)
 );
 
-INSERT INTO Discount (наименование, размер) VALUES
+INSERT INTO Discount (denomination, size) VALUES
 ('Новичок', 5),
 ('Постоянный', 10),
 ('VIP', 15),
@@ -73,7 +73,7 @@ INSERT INTO Discount (наименование, размер) VALUES
 ('Студенческая', 6),
 ('Пенсионная', 8);
 
-INSERT INTO Client (ФИО, Адрес, телефон) VALUES
+INSERT INTO Client (full_name, adress, telephone) VALUES
 ('Зубенко Михаил Петрович', 'ул. Трастова, д.3, кв.2', '+7(915)193-00-44'),
 ('Третьяков Дмитрий Викторович', 'пр. Вернандского, д.13', '+7(966)799-00-55'),
 ('Жаворонков Алексей Иванович', 'ул. Дор, д.3, кв.99', '+7(995)456-00-74'),
@@ -85,23 +85,24 @@ INSERT INTO Client (ФИО, Адрес, телефон) VALUES
 ('Гюго Виктор Владимирович', 'ул. Орлова, д.4, кв.7', '+7(950)985-00-45'),
 ('Гетте Иоганн Вольфганг', 'ул. Дмитрова, д.9', '+7(940)097-00-43');
 
-INSERT INTO Workshop (адрес) VALUES
+INSERT INTO Workshop (adress) VALUES
 ('ул. Фор, д.3'),
 ('пр. Файв, д.75'),
 ('ул. Сикс, д.76'),
 ('пер. Севен, д. 31'),
 ('ул. Эйт, д.32');
 
-INSERT INTO Material DEFAULT VALUES;
-INSERT INTO Material DEFAULT VALUES;
-INSERT INTO Material DEFAULT VALUES;
-INSERT INTO Material DEFAULT VALUES;
-INSERT INTO Material DEFAULT VALUES;
-INSERT INTO Material DEFAULT VALUES;
-INSERT INTO Material DEFAULT VALUES;
-INSERT INTO Material DEFAULT VALUES;
+INSERT INTO Material (name) VALUES
+('Золото'),
+('Серебро'),
+('Платина'),
+('Бриллиант'),
+('Рубин'),
+('Сапфир'),
+('Изумруд'),
+('Жемчуг');
 
-INSERT INTO Jewelery (название_изделия, вид_изделия, Workshop_ID) VALUES
+INSERT INTO Jewelery (product_name, type_of_product, workshop_ID) VALUES
 ('Обручальное кольцо "Самсунг"', 'Кольцо', 1),
 ('Серьги "Красота"', 'Серьги', 2),
 ('Колье "Ляпота"', 'Колье', 3),
@@ -115,7 +116,7 @@ INSERT INTO Jewelery (название_изделия, вид_изделия, Wo
 ('Брошь "Дартвейдер"', 'Брошь', 1),
 ('Запонки "Инициалы"', 'Запонки', 2);
 
-INSERT INTO Contract (дата, статус, стоимость, Client_ID, Jewelery_ID, Discount_ID) VALUES
+INSERT INTO Contract (data, status_, price, client_ID, jewelery_ID, discount_ID) VALUES
 ('2025-01-01', 'Выполнен', 45000, 1, 1, 1),
 ('2025-02-04', 'В работе', 78000, 2, 2, 2),
 ('2025-03-05', 'Выполнен', 125000, 3, 3, 3),
@@ -127,9 +128,9 @@ INSERT INTO Contract (дата, статус, стоимость, Client_ID, Jew
 ('2025-09-12', 'Выполнен', 54300, 9, 9, 2),
 ('2025-10-13', 'В работе', 36700, 10, 10, 1),
 ('2025-11-14', 'Выполнен', 89200, 1, 11, 2), 
-('2025-12-12', 'Ожидание', 67400, 3, 12, 3); 
+('2025-12-12', 'Ожидание', 67400, 3, 12, 3);
 
-INSERT INTO Klientskidka (Client_ID, Discount_ID) VALUES
+INSERT INTO client_discount (client_ID, discount_ID) VALUES
 (1, 1), 
 (1, 2), 
 (2, 2), 
@@ -145,20 +146,20 @@ INSERT INTO Klientskidka (Client_ID, Discount_ID) VALUES
 (9, 2),  
 (9, 9),  
 (10, 1), 
-(10, 10); 
+(10, 10);
 
-INSERT INTO Materializdelie (Material_ID, Jewelery_ID) VALUES
-(1, 1),  
-(1, 2),   
-(2, 3),  
-(3, 4),  
-(2, 5),   
-(4, 6),   
-(1, 7),  
-(5, 8),   
-(3, 9),  
-(2, 10), 
-(4, 11),  
-(5, 12),  
-(1, 3),  
-(2, 8);   
+INSERT INTO jewelery_material (material_ID, jewelery_ID, weight) VALUES
+(1, 1, 10.50),  
+(1, 2, 15.75),   
+(2, 3, 25.30),  
+(3, 4, 8.20),  
+(2, 5, 18.60),   
+(4, 6, 12.40),   
+(1, 7, 22.10),  
+(5, 8, 30.25),   
+(3, 9, 9.80),  
+(2, 10, 11.35), 
+(4, 11, 7.90),  
+(5, 12, 14.20),  
+(1, 3, 5.50),  
+(2, 8, 12.75);
