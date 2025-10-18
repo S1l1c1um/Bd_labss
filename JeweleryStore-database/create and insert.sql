@@ -73,7 +73,7 @@ INSERT INTO Discount (denomination, size) VALUES
 ('Студенческая', 6),
 ('Пенсионная', 8);
 
-INSERT INTO Client (full_name, adress, telephone) VALUES
+INSERT INTO Client (full_name, address, telephone) VALUES
 ('Зубенко Михаил Петрович', 'ул. Трастова, д.3, кв.2', '+7(915)193-00-44'),
 ('Третьяков Дмитрий Викторович', 'пр. Вернандского, д.13', '+7(966)799-00-55'),
 ('Жаворонков Алексей Иванович', 'ул. Дор, д.3, кв.99', '+7(995)456-00-74'),
@@ -85,7 +85,7 @@ INSERT INTO Client (full_name, adress, telephone) VALUES
 ('Гюго Виктор Владимирович', 'ул. Орлова, д.4, кв.7', '+7(950)985-00-45'),
 ('Гетте Иоганн Вольфганг', 'ул. Дмитрова, д.9', '+7(940)097-00-43');
 
-INSERT INTO Workshop (adress) VALUES
+INSERT INTO Workshop (address) VALUES
 ('ул. Фор, д.3'),
 ('пр. Файв, д.75'),
 ('ул. Сикс, д.76'),
@@ -163,4 +163,5 @@ INSERT INTO jewelery_material (material_ID, jewelery_ID, weight) VALUES
 (5, 12, 14.20),  
 (1, 3, 5.50),  
 (2, 8, 12.75);
+
 
