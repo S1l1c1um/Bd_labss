@@ -3,19 +3,19 @@ USE JaweleryStore;
 CREATE TABLE Discount (
     ID INT IDENTITY(1,1) PRIMARY KEY,
     denomination NVARCHAR(20) NOT NULL,
-    size INT NOT NULL CHECK (size >= 0 AND size <= 100)
+    size INT NOT NULL CHECK (size BETWEEN 0 AND 100)
 );
 
 CREATE TABLE Client (
     ID INT IDENTITY(1,1) PRIMARY KEY,
     full_name NVARCHAR(100) NOT NULL,
-    adress NVARCHAR(100),
+    address NVARCHAR(100),
     telephone NVARCHAR(20)
 );
 
 CREATE TABLE Workshop (
     ID INT IDENTITY(1,1) PRIMARY KEY,
-    adress NVARCHAR(100) NOT NULL 
+    address NVARCHAR(100) NOT NULL 
 );
 
 CREATE TABLE Material (
@@ -163,3 +163,4 @@ INSERT INTO jewelery_material (material_ID, jewelery_ID, weight) VALUES
 (5, 12, 14.20),  
 (1, 3, 5.50),  
 (2, 8, 12.75);
+
