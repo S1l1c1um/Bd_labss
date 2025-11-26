@@ -83,4 +83,4 @@ ER-модель д.б. представлена в виде ER-диаграмм�
 
 [Часть 1](https://github.com/S1l1c1um/Bd_labss/blob/main/lab3/lab3%20bd%20part%201.docx)
 
-[Часть 2](https://github.com/S1l1c1um/Bd_labss/blob/main/lab3/lab%203%20bd%20part%202.docx)
+[Часть 2](https://github.com/S1l1c1um/Bd_labss/blob/main/lab3/lab%203%20bd%20part%202%20(2).docx)
