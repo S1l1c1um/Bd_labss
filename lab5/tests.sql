@@ -1,4 +1,4 @@
--- проверка руководителя
+-- РїСЂРѕРІРµСЂРєР° СЂСѓРєРѕРІРѕРґРёС‚РµР»СЏ
 EXECUTE AS USER = 'User_JeweleryManager'
 
 SELECT * FROM Workshop  
@@ -7,16 +7,17 @@ EXEC GetClientByContract @contract_id = 1, @client_name = ''
 
 REVERT
 
--- проверка сотрудника
+-- РїСЂРѕРІРµСЂРєР° СЃРѕС‚СЂСѓРґРЅРёРєР°
 EXECUTE AS USER = 'User_JeweleryEmployee'
 
 SELECT * FROM Jewelery   
 SELECT * FROM Material  
-EXEC GetJeweleryByType @product_type = 'Кольцо' 
+EXEC GetJeweleryByType @product_type = 'ДГ®Г«ГјГ¶Г®' 
 
 SELECT * FROM Workshop 
 
 UPDATE Contract SET price = 50000 WHERE id = 1 
 DELETE FROM Client WHERE id = 1 
+
 
 REVERT
