@@ -1,22 +1,22 @@
-CREATE LOGIN User_JeweleryManager WITH PASSWORD = '1234567';
-CREATE LOGIN User_JeweleryEmployee WITH PASSWORD = '1234567';
+CREATE LOGIN User_JeweleryManager WITH PASSWORD = '11111111';
+CREATE LOGIN User_JeweleryEmployee WITH PASSWORD = '22222222';
 
 USE JaweleryStore;
 
--- создаем пользователей в базе данных
+-- СЃРѕР·РґР°РµРј РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№ РІ Р±Р°Р·Рµ РґР°РЅРЅС‹С…
 CREATE USER User_JeweleryManager FOR LOGIN User_JeweleryManager;
 CREATE USER User_JeweleryEmployee FOR LOGIN User_JeweleryEmployee;
 
--- создаем роли менеджера и работника
+-- СЃРѕР·РґР°РµРј СЂРѕР»Рё РјРµРЅРµРґР¶РµСЂР° Рё СЂР°Р±РѕС‚РЅРёРєР°
 CREATE ROLE Role_JeweleryManager;
 CREATE ROLE Role_JeweleryEmployee;
 
--- пользователей к ролям 
+-- РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№ Рє СЂРѕР»СЏРј 
 ALTER ROLE Role_JeweleryManager ADD MEMBER User_JeweleryManager;
 ALTER ROLE Role_JeweleryEmployee ADD MEMBER User_JeweleryEmployee;
 
 
--- полные права
+-- РїРѕР»РЅС‹Рµ РїСЂР°РІР°
 GRANT SELECT, INSERT, UPDATE, DELETE ON Discount TO Role_JeweleryManager;
 GRANT SELECT, INSERT, UPDATE, DELETE ON Client TO Role_JeweleryManager;
 GRANT SELECT, INSERT, UPDATE, DELETE ON Workshop TO Role_JeweleryManager;
@@ -41,7 +41,7 @@ GRANT SELECT ON Contract TO Role_JeweleryManager WITH GRANT OPTION;
 GRANT EXECUTE ON GetWorkshopRevenue TO Role_JeweleryManager WITH GRANT OPTION;
 GRANT SELECT ON GetTopClients TO Role_JeweleryManager WITH GRANT OPTION;
 
---права для сотрудника
+--РїСЂР°РІР° РґР»СЏ СЃРѕС‚СЂСѓРґРЅРёРєР°
 GRANT SELECT ON Material TO Role_JeweleryEmployee
 GRANT SELECT ON Jewelery TO Role_JeweleryEmployee
 GRANT SELECT ON jewelery_material TO Role_JeweleryEmployee
@@ -60,5 +60,6 @@ DENY UPDATE, DELETE ON Contract TO Role_JeweleryEmployee
 DENY UPDATE, DELETE ON Jewelery TO Role_JeweleryEmployee
 DENY UPDATE, DELETE ON Material TO Role_JeweleryEmployee
 DENY UPDATE, DELETE ON Discount TO Role_JeweleryEmployee
+
 
 
