@@ -1,16 +1,16 @@
---через ALTER COLUMN
--- маскируем телефоны клиентов
+--С‡РµСЂРµР· ALTER COLUMN
+-- РјР°СЃРєРёСЂСѓРµРј С‚РµР»РµС„РѕРЅС‹ РєР»РёРµРЅС‚РѕРІ
 ALTER TABLE Client
 ALTER COLUMN telephone ADD MASKED WITH (FUNCTION = 'partial(2,"xxxx-xx",5)');
 
--- маскируем адреса клиентов
+-- РјР°СЃРєРёСЂСѓРµРј Р°РґСЂРµСЃР° РєР»РёРµРЅС‚РѕРІ
 ALTER TABLE Client  
 ALTER COLUMN address ADD MASKED WITH (FUNCTION = 'partial(3,"xxxxxxxx",0)');
 
--- руководителю реальные данные
+-- СЂСѓРєРѕРІРѕРґРёС‚РµР»СЋ СЂРµР°Р»СЊРЅС‹Рµ РґР°РЅРЅС‹Рµ
 GRANT UNMASK TO Role_JeweleryManager;
 
--- проверка маскирования через ALTER COLUMN
+-- РїСЂРѕРІРµСЂРєР° РјР°СЃРєРёСЂРѕРІР°РЅРёСЏ С‡РµСЂРµР· ALTER COLUMN
 EXECUTE AS USER = 'User_JeweleryManager'
 SELECT TOP 3 full_name, telephone, address FROM Client
 REVERT
@@ -20,9 +20,9 @@ SELECT TOP 3 full_name, telephone, address FROM Client
 REVERT
 GO
 
---через функции и представления
+--С‡РµСЂРµР· С„СѓРЅРєС†РёРё Рё РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏ
 
--- Функция для маскирования ФИО
+-- Р¤СѓРЅРєС†РёСЏ РґР»СЏ РјР°СЃРєРёСЂРѕРІР°РЅРёСЏ Р¤РРћ
 CREATE FUNCTION MaskClientName (
     @full_name NVARCHAR(100)
 )
@@ -50,7 +50,7 @@ BEGIN
 END
 GO
 
--- функция для маскирования телефона
+-- С„СѓРЅРєС†РёСЏ РґР»СЏ РјР°СЃРєРёСЂРѕРІР°РЅРёСЏ С‚РµР»РµС„РѕРЅР°
 CREATE FUNCTION MaskClientPhoneFunc (
     @phone NVARCHAR(20)
 )
@@ -63,7 +63,7 @@ BEGIN
 END
 GO
 
---функция для маскирования адреса
+--С„СѓРЅРєС†РёСЏ РґР»СЏ РјР°СЃРєРёСЂРѕРІР°РЅРёСЏ Р°РґСЂРµСЃР°
 CREATE FUNCTION MaskClientAddressFunc (
     @address NVARCHAR(100)
 )
@@ -73,15 +73,15 @@ BEGIN
     IF IS_MEMBER('Role_JeweleryManager') = 1
         RETURN @address
     
-    IF @address LIKE '%ул.%' RETURN 'ул. [скрыто]'
-    IF @address LIKE '%пр.%' RETURN 'пр. [скрыто]'
-    IF @address LIKE '%пер.%' RETURN 'пер. [скрыто]'
+    IF @address LIKE '%ГіГ«.%' RETURN 'ГіГ«. [Г±ГЄГ°Г»ГІГ®]'
+    IF @address LIKE '%ГЇГ°.%' RETURN 'ГЇГ°. [Г±ГЄГ°Г»ГІГ®]'
+    IF @address LIKE '%ГЇГҐГ°.%' RETURN 'ГЇГҐГ°. [Г±ГЄГ°Г»ГІГ®]'
     
-    RETURN 'адрес [скрыт]'
+    RETURN 'Г Г¤Г°ГҐГ± [Г±ГЄГ°Г»ГІ]'
 END
 GO
 
---защищенное представление для клиентов
+--Р·Р°С‰РёС‰РµРЅРЅРѕРµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ РґР»СЏ РєР»РёРµРЅС‚РѕРІ
 CREATE VIEW vw_Clients_Protected
 AS
 SELECT 
@@ -92,17 +92,18 @@ SELECT
 FROM Client
 GO
 
--- доступ к защищенному представлению
+-- РґРѕСЃС‚СѓРї Рє Р·Р°С‰РёС‰РµРЅРЅРѕРјСѓ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЋ
 GRANT SELECT ON vw_Clients_Protected TO Role_JeweleryEmployee
 
--- проверка для руководителя
+-- РїСЂРѕРІРµСЂРєР° РґР»СЏ СЂСѓРєРѕРІРѕРґРёС‚РµР»СЏ
 EXECUTE AS USER = 'User_JeweleryManager'
 SELECT TOP 3 * FROM Client
 REVERT
 
--- проверка для сотрудника
+-- РїСЂРѕРІРµСЂРєР° РґР»СЏ СЃРѕС‚СЂСѓРґРЅРёРєР°
 EXECUTE AS USER = 'User_JeweleryEmployee'
 SELECT TOP 3 * FROM Client
 SELECT TOP 3 * FROM vw_Clients_Protected as telephone_full
 REVERT
+
 
