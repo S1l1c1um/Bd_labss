@@ -1,7 +1,7 @@
 USE JaweleryStore;
 GO
 
--- Создаем узлы 
+-- РЎРѕР·РґР°РµРј СѓР·Р»С‹ 
 CREATE TABLE ClientNode (
     ID INT PRIMARY KEY,
     full_name NVARCHAR(100) NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE ContractNode (
     price MONEY NOT NULL
 ) AS NODE;
 
--- Создаем ребра
+-- РЎРѕР·РґР°РµРј СЂРµР±СЂР°
 CREATE TABLE HAS_DISCOUNT AS EDGE;
 
 CREATE TABLE PRODUCED_IN AS EDGE;
@@ -53,7 +53,7 @@ CREATE TABLE IS_FOR AS EDGE;
 
 CREATE TABLE USES_DISCOUNT AS EDGE;
 
--- Заполняем узлы данными из реляционных таблиц
+-- Р—Р°РїРѕР»РЅСЏРµРј СѓР·Р»С‹ РґР°РЅРЅС‹РјРё РёР· СЂРµР»СЏС†РёРѕРЅРЅС‹С… С‚Р°Р±Р»РёС†
 INSERT INTO ClientNode (ID, full_name, address, telephone)
 SELECT ID, full_name, address, telephone FROM Client;
 
@@ -72,9 +72,9 @@ SELECT ID, product_name, type_of_product FROM Jewelery;
 INSERT INTO ContractNode (ID, data, status_, price)
 SELECT ID, data, status_, price FROM Contract;
 
--- Создаем связи между узлами
+-- РЎРѕР·РґР°РµРј СЃРІСЏР·Рё РјРµР¶РґСѓ СѓР·Р»Р°РјРё
 
--- 1. Связь Client - HAS_DISCOUNT - Discount (из таблицы client_discount)
+-- 1. РЎРІСЏР·СЊ Client - HAS_DISCOUNT - Discount (РёР· С‚Р°Р±Р»РёС†С‹ client_discount)
 INSERT INTO HAS_DISCOUNT ($from_id, $to_id)
 SELECT 
     cn.$node_id,
@@ -84,7 +84,7 @@ FROM
     JOIN ClientNode cn ON cd.client_ID = cn.ID
     JOIN DiscountNode dn ON cd.discount_ID = dn.ID;
 
--- 2. Связь Jewelery - PRODUCED_IN - Workshop
+-- 2. РЎРІСЏР·СЊ Jewelery - PRODUCED_IN - Workshop
 INSERT INTO PRODUCED_IN ($from_id, $to_id)
 SELECT 
     jn.$node_id,
@@ -94,7 +94,7 @@ FROM
     JOIN JeweleryNode jn ON j.ID = jn.ID
     JOIN WorkshopNode wn ON j.workshop_ID = wn.ID;
 
--- 3. Связь Jewelery - MADE_OF - Material (с весом)
+-- 3. РЎРІСЏР·СЊ Jewelery - MADE_OF - Material (СЃ РІРµСЃРѕРј)
 INSERT INTO MADE_OF ($from_id, $to_id, weight)
 SELECT 
     jn.$node_id,
@@ -105,7 +105,7 @@ FROM
     JOIN JeweleryNode jn ON jm.jewelery_ID = jn.ID
     JOIN MaterialNode mn ON jm.material_ID = mn.ID;
 
--- 4. Связь Client - HAS_CONTRACT - Contract
+-- 4. РЎРІСЏР·СЊ Client - HAS_CONTRACT - Contract
 INSERT INTO HAS_CONTRACT ($from_id, $to_id)
 SELECT 
     cn.$node_id,
@@ -115,7 +115,7 @@ FROM
     JOIN ClientNode cn ON c.client_ID = cn.ID
     JOIN ContractNode contn ON c.ID = contn.ID;
 
--- 5. Связь Contract - IS_FOR - Jewelery
+-- 5. РЎРІСЏР·СЊ Contract - IS_FOR - Jewelery
 INSERT INTO IS_FOR ($from_id, $to_id)
 SELECT 
     contn.$node_id,
@@ -125,7 +125,7 @@ FROM
     JOIN ContractNode contn ON c.ID = contn.ID
     JOIN JeweleryNode jn ON c.jewelery_ID = jn.ID;
 
--- 6. Связь Contract - USES_DISCOUNT - Discount
+-- 6. РЎРІСЏР·СЊ Contract - USES_DISCOUNT - Discount
 INSERT INTO USES_DISCOUNT ($from_id, $to_id)
 SELECT 
     contn.$node_id,
