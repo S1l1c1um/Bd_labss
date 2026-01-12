@@ -27,7 +27,9 @@
 - Поиск изделий по заданным характеристикам
 </h3>
 </p>
-<img src="https://github.com/user-attachments/assets/e080adec-6af7-4bd2-b232-d43cb37024ac" width="20" height="20"/> Лабораторная работа №1
+
+# <a id="-lab1"></a><img src="https://github.com/user-attachments/assets/e080adec-6af7-4bd2-b232-d43cb37024ac" width="20" height="20"/> Lab1
+# Лабораторная работа №2
 [Назад](#content)
 
 <p aligh="justify>
