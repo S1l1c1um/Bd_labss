@@ -28,7 +28,7 @@
 </h3>
 </p>
 <img src="https://github.com/user-attachments/assets/e080adec-6af7-4bd2-b232-d43cb37024ac" width="20" height="20"/> Лабораторная работа №1
-
+[Назад](#content)
 
 <p aligh="justify>
 <h3>
@@ -55,7 +55,9 @@ ER-модель д.б. представлена в виде ER-диаграмм�
 #### Реляционная модель
 ![image](/lab1/bd11.png)
 
+# <a id="-lab1"></a><img src="https://github.com/user-attachments/assets/e080adec-6af7-4bd2-b232-d43cb37024ac" width="20" height="20"/> Lab2
 # Лабораторная работа №2
+[Назад](#content)
 
 <p aligh="justify>
 <h3>
@@ -75,6 +77,7 @@ ER-модель д.б. представлена в виде ER-диаграмм�
 #### Диаграмма базы данных
 ![image](/lab1/dia11.JPG)
 
+# <a id="-lab1"></a><img src="https://github.com/user-attachments/assets/e080adec-6af7-4bd2-b232-d43cb37024ac" width="20" height="20"/> Lab3
 # Лабораторная работа №3
 [Назад](#content)
 
